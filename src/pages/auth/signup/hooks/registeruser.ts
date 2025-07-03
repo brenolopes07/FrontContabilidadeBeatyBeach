@@ -1,5 +1,6 @@
 import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export interface RegisterUser{
    username: string;
@@ -16,15 +17,22 @@ export  function useCadastrarUsuario(){
    const {mutate, isPending} = useMutation({
       mutationKey: ["cadastrarUsuario"],
       mutationFn: async ({username, salarioMensal}: RegisterUser) => {
-         const response = await api.post<User>("/User", {
-            Username: username,
-            SalarioMensal: salarioMensal,
+         const {data} = await api.post<User>("/User", {
+            username,
+            salarioMensal,
          });
-         return response.data;
+         console.log (data);
+         return data;
+         
       },
-      onError: (error) => {
-         console.error("Erro ao cadastrar usuário:", error);
-         alert("Erro ao cadastrar usuário. Tente novamente.");
+      onError: () => {
+         toast.error("Erro ao cadastrar usuário. Por favor, tente novamente.", );
+      },
+      onSuccess: () => {  
+         toast.success("Usuário cadastrado com sucesso! Agora você pode fazer login.", {
+            duration: 5000,
+            position: "top-right",
+         });         
       }
    })
    return {
