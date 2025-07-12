@@ -1,5 +1,6 @@
 import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export interface UserLogin{
@@ -16,6 +17,7 @@ export interface User {
 }
 
 export function useLoginUser(){
+   const navigate = useNavigate();
    const {mutate, isPending} = useMutation({
       mutationKey: ["loginUser"],
       mutationFn: async ({username}: UserLogin) => {
@@ -24,7 +26,7 @@ export function useLoginUser(){
          });
 
          return usuario.data;
-      },
+      },     
       onError:() => {
          toast.error("Erro ao fazer login. Por favor, verifique seu usuário e tente novamente.", {
             duration: 5000,
@@ -34,9 +36,10 @@ export function useLoginUser(){
       onSuccess:(data) => {
          localStorage.setItem("user", JSON.stringify(data));
          toast.success("Login realizado com sucesso!", {
-            duration: 5000,
+            duration: 2000,
             position: "top-right",
          });
+         navigate("/dashboard");
       }
    })
    return {
