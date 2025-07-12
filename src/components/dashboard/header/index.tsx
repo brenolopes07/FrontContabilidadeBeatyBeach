@@ -1,7 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { Calculator, LogOut, User } from "lucide-react";
+import { Button } from "@/components/ui/button"
+import { Calculator, LogOut, User } from "lucide-react"
+import { useHeaderData } from "./hooks/useHeader"
+import { formatMonthYear } from "@/utils/format-data/format-month-year"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export function DashboardHeader (){
+export function DashboardHeader() {
+   const {
+      username,
+      mesSelecionado,
+      setMesSelecionado,
+      mesesDisponiveis
+   } = useHeaderData()
+
    return (
       <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b px-4 py-3 sm:px-6">
          <div className="flex items-center justify-between">
@@ -12,15 +22,32 @@ export function DashboardHeader (){
                </div>
                <div>
                   <h1 className="text-lg font-bold text-gray-900 sm:text-xl">Dashboard</h1>
-                  <p className="text-xs text-gray-600 sm:text-sm">Janeiro 2024</p>
+                  <div className="flex items-center space-x-2">
+                     {/* Seletor de mês */}
+                     <Select
+                        value={mesSelecionado}
+                        onValueChange={(value) => setMesSelecionado(value)}
+                     >
+                        <SelectTrigger className="w-[120px]">
+                           <SelectValue placeholder="Selecione o mês" />
+                        </SelectTrigger>
+                        <SelectContent>
+                           {mesesDisponiveis.map((mes) => (
+                              <SelectItem key={mes} value={mes}>
+                                 {formatMonthYear(mes)}
+                              </SelectItem>
+                           ))}
+                        </SelectContent>
+                     </Select>
+                  </div>
                </div>
             </div>
 
-            {/* Nome do usuário + logout */}
+            {/* Usuário + botão logout */}
             <div className="flex items-center space-x-2">
                <div className="hidden sm:flex items-center space-x-2 mr-2">
                   <User className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Breno Lopes</span>
+                  <span className="text-sm font-medium text-gray-700">{username}</span>
                </div>
                <Button variant="ghost" size="sm" className="p-2">
                   <LogOut className="w-4 h-4" />
