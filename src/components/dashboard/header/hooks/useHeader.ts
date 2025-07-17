@@ -47,6 +47,7 @@ export function useHeaderData() {
    }, [])
 
    const mesFormatado = mesSelecionado ? formatMonthYear(mesSelecionado) : ""
+   const resumoSelecionado = resumos.find(r => r.mesAno === mesSelecionado);
 
    return {
       username,
@@ -54,5 +55,6 @@ export function useHeaderData() {
       mesFormatado,
       setMesSelecionado,
       mesesDisponiveis: resumos.map((r) => r.mesAno),
+      salarioTotal: resumoSelecionado?.salarioTotal ?? null,
    }
 }
