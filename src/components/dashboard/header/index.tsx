@@ -53,10 +53,19 @@ export function DashboardHeader() {
                            ))}
                         </SelectContent>
                      </Select>
+
+                     
+                  </div>
+                  <div className="flex justify-between">
+                     <Button className="bg-purple-600 hover:bg-purple-700 flex mr-10 text-white" size="sm">
+                        Minhas Extras e Comissoes
+                     </Button>
+                     <Button className="bg-blue-600 hover:bg-purple-700 flex text-white" size="sm">
+                        Calcular Resultados novamente!
+                     </Button>
                   </div>
                </div>
             </div>
-
             {/* Usuário + logout */}
             <div className="flex items-center space-x-2">
                <div className="hidden sm:flex items-center space-x-2 mr-2">
