@@ -36,12 +36,12 @@ export function DashboardHeader() {
                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full flex items-center justify-center sm:w-10 sm:h-10">
                   <Calculator className="w-4 h-4 text-white sm:w-5 sm:h-5" />
                </div>
-               <div>
+               <div className="flex space-x-5">
                   <h1 className="text-lg font-bold text-gray-900 sm:text-xl">Dashboard</h1>
                   <div className="flex items-center space-x-2">
                      {/* Select de meses */}
                      <Select value={mesSelecionado} onValueChange={handleSetMonths}>
-                        <SelectTrigger className="w-[120px]">
+                        <SelectTrigger className="w-[150px]">
                            <SelectValue placeholder="Selecione o mês" />
                         </SelectTrigger>
 
